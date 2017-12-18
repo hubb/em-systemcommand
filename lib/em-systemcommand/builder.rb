@@ -28,10 +28,9 @@ module EventMachine
       alias :<< :add
 
       ##
-      # Returns the command string
-      def to_s
-        cmd = ''
-        @arr.each do |arg|
+      # Returns the command Array
+      def to_a
+        @arr.each_with_object([]) do |arg, cmd|
           if arg == @arr.first
             cmd << arg
           elsif arg.is_a?(Array)
@@ -59,7 +58,12 @@ module EventMachine
             cmd << ' ' << Escape.shell_single_word(arg.to_s)
           end
         end
-        cmd
+      end
+
+      ##
+      # Returns the command string
+      def to_s
+        to_a.join('')
       end
 
     end

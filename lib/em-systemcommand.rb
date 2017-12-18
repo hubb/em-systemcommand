@@ -67,7 +67,7 @@ module EventMachine
       @callbacks = []
       @errbacks = []
 
-      pid, stdin, stdout, stderr = POSIX::Spawn.popen4 @command.to_s
+      pid, stdin, stdout, stderr = POSIX::Spawn.popen4(*@command.to_a)
 
       @pid = pid
       @stdin  = attach_pipe_handler :stdin, stdin
